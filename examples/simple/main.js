@@ -3,6 +3,8 @@ define([
   , 'specimenTools/initDocumentWidgets'
   , 'specimenTools/services/PubSub'
   , 'specimenTools/services/FontsData'
+  , '!require/text!specimenTools/services/languageCharSets.json'
+
   , 'specimenTools/services/WebfontProvider'
   , 'specimenTools/widgets/GlyphTables'
   , 'specimenTools/widgets/FamilyChooser'
@@ -14,6 +16,7 @@ define([
   , initDocumentWidgets
   , PubSub
   , FontsData
+  , languageCharSetsJson
   , WebFontProvider
   , GlyphTables
   , FamilyChooser
@@ -35,7 +38,10 @@ define([
         // dependant on the state of another module.
         var pubsub = new PubSub()
           , factories
-          , fontsData = new FontsData(pubsub, {useLaxDetection: true})
+          , fontsData = new FontsData(pubsub, {
+                  useLaxDetection: true
+                , languageCharSets: JSON.parse(languageCharSetsJson)
+                })
           , webFontProvider = new WebFontProvider(window, pubsub, fontsData)
           ;
 
